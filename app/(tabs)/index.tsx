@@ -1,98 +1,104 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { globalStyles } from '@/styles/globalStyles';
+import { router } from "expo-router";
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList, Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const API_URL = 'https://antenadelosandes.com/wp-json/wp/v2/posts?_embed&per_page=10';
 
-export default function HomeScreen() {
+export default function Noticias() {
+  const [noticias, setNoticias] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  const loadNoticias = () => {
+    setCargando(true);
+
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => {
+        setNoticias(data);
+        setCargando(false);
+      })
+      .catch(err => {
+        console.log('Error:', err);
+        setCargando(false);
+      });
+  };
+
+  useEffect(() => {
+    loadNoticias();
+  }, []);
+
+  const getImagen = (item: any) => {
+    try {
+      return item._embedded['wp:featuredmedia'][0].source_url;
+    } catch {
+      return 'https://antenadelosandes.com/wp-content/uploads/2025/07/cropped-IMG.png';
+    }
+  };
+
+  const getResumen = (item: any) => {
+    return item.excerpt.rendered.replace(/<[^>]*>/g, '').trim();
+  };
+
+  const renderNoticia = ({ item }: { item: any }) => (
+      <TouchableOpacity
+      style={globalStyles.card}
+      onPress={() =>
+        router.push({
+          pathname: "/noticia",
+          params: { id: item.id },
+        })
+      }
+    >
+      <Image source={{ uri: getImagen(item) }} style={globalStyles.imagen} />
+      <View style={globalStyles.contenido}>
+        <Text style={globalStyles.categoria}>
+          {item._embedded?.['wp:term']?.[0]?.[0]?.name ?? ''}
+        </Text>
+        <Text style={globalStyles.titulo}>{item.title.rendered}</Text>
+        <Text style={globalStyles.resumen} numberOfLines={3}>{getResumen(item)}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  if (cargando) {
+    return (
+      <View style={globalStyles.loading}>
+        <ActivityIndicator size="large" color="#c0392b" />
+        <Text style={{ marginTop: 10, color: '#666' }}>Cargando noticias...</Text>
+      </View>
+    );
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView style={globalStyles.container}>
+      <FlatList
+        data={noticias}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderNoticia}
+        refreshing={cargando}
+        onRefresh={loadNoticias}
+      />
+    </SafeAreaView>
   );
 }
-
+/*
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  container: { flex: 1, backgroundColor: '#f4f4f4' },
+  loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  header: { fontSize: 20, fontWeight: 'bold', padding: 16, backgroundColor: '#c0392b', color: 'white' },
+  card: { backgroundColor: 'white', marginHorizontal: 12, marginTop: 12, borderRadius: 10, overflow: 'hidden', elevation: 3 },
+  imagen: { width: '100%', height: 180 },
+  contenido: { padding: 12 },
+  categoria: { fontSize: 11, color: '#c0392b', fontWeight: 'bold', marginBottom: 4, textTransform: 'uppercase' },
+  titulo: { fontSize: 16, fontWeight: 'bold', marginBottom: 6, color: '#222' },
+  resumen: { fontSize: 13, color: '#555', lineHeight: 19 },
 });
+*/
