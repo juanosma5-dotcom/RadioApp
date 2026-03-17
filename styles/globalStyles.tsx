@@ -61,5 +61,16 @@ export const globalStyles = StyleSheet.create({
     fontSize: 13, 
     color: '#555',
     lineHeight: 19 
-  }
+  },
+  botonReintentar: {
+    backgroundColor: '#24376B',
+    paddingHorizontal: 28,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  botonReintentarTexto: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
 });

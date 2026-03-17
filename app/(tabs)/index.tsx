@@ -1,32 +1,35 @@
+import { CONFIG } from '@/constants/config';
 import { globalStyles } from '@/styles/globalStyles';
-import { router } from "expo-router";
+import { WpPost } from '@/types/post';
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  FlatList, Image,
+  FlatList,
+  Image,
   SafeAreaView,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
-const API_URL = 'https://antenadelosandes.com/wp-json/wp/v2/posts?_embed&per_page=10';
-
 export default function Noticias() {
-  const [noticias, setNoticias] = useState([]);
+  const [noticias, setNoticias] = useState<WpPost[]>([]);
   const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(false);
 
   const loadNoticias = () => {
     setCargando(true);
-
-    fetch(API_URL)
+    setError(false);
+    fetch(CONFIG.apiNoticias)
       .then(res => res.json())
-      .then(data => {
+      .then((data: WpPost[]) => {
         setNoticias(data);
         setCargando(false);
       })
       .catch(err => {
         console.log('Error:', err);
+        setError(true);
         setCargando(false);
       });
   };
@@ -35,24 +38,46 @@ export default function Noticias() {
     loadNoticias();
   }, []);
 
-  const getImagen = (item: any) => {
-    try {
-      return item._embedded['wp:featuredmedia'][0].source_url;
-    } catch {
-      return 'https://antenadelosandes.com/wp-content/uploads/2025/07/cropped-IMG.png';
-    }
+  const getImagen = (item: WpPost): string => {
+    return item._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? CONFIG.imagenFallback;
   };
 
-  const getResumen = (item: any) => {
+  const getResumen = (item: WpPost): string => {
     return item.excerpt.rendered.replace(/<[^>]*>/g, '').trim();
   };
 
-  const renderNoticia = ({ item }: { item: any }) => (
-      <TouchableOpacity
+  if (cargando) {
+    return (
+      <View style={globalStyles.loading}>
+        <ActivityIndicator size="large" color="#c0392b" />
+        <Text style={{ marginTop: 10, color: '#666' }}>Cargando noticias...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={globalStyles.loading}>
+        <Text style={{ fontSize: 48, marginBottom: 12 }}>⚠️</Text>
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333', marginBottom: 6 }}>
+          Sin conexión
+        </Text>
+        <Text style={{ fontSize: 13, color: '#888', textAlign: 'center', marginBottom: 20 }}>
+          No se pudieron cargar las noticias.
+        </Text>
+        <TouchableOpacity onPress={loadNoticias} style={globalStyles.botonReintentar}>
+          <Text style={globalStyles.botonReintentarTexto}>Reintentar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  const renderNoticia = ({ item }: { item: WpPost }) => (
+    <TouchableOpacity
       style={globalStyles.card}
       onPress={() =>
         router.push({
-          pathname: "/noticia",
+          pathname: '/noticia',
           params: { id: item.id },
         })
       }
@@ -63,19 +88,12 @@ export default function Noticias() {
           {item._embedded?.['wp:term']?.[0]?.[0]?.name ?? ''}
         </Text>
         <Text style={globalStyles.titulo}>{item.title.rendered}</Text>
-        <Text style={globalStyles.resumen} numberOfLines={3}>{getResumen(item)}</Text>
+        <Text style={globalStyles.resumen} numberOfLines={3}>
+          {getResumen(item)}
+        </Text>
       </View>
     </TouchableOpacity>
   );
-
-  if (cargando) {
-    return (
-      <View style={globalStyles.loading}>
-        <ActivityIndicator size="large" color="#c0392b" />
-        <Text style={{ marginTop: 10, color: '#666' }}>Cargando noticias...</Text>
-      </View>
-    );
-  }
 
   return (
     <SafeAreaView style={globalStyles.container}>
@@ -89,16 +107,3 @@ export default function Noticias() {
     </SafeAreaView>
   );
 }
-/*
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f4f4' },
-  loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  header: { fontSize: 20, fontWeight: 'bold', padding: 16, backgroundColor: '#c0392b', color: 'white' },
-  card: { backgroundColor: 'white', marginHorizontal: 12, marginTop: 12, borderRadius: 10, overflow: 'hidden', elevation: 3 },
-  imagen: { width: '100%', height: 180 },
-  contenido: { padding: 12 },
-  categoria: { fontSize: 11, color: '#c0392b', fontWeight: 'bold', marginBottom: 4, textTransform: 'uppercase' },
-  titulo: { fontSize: 16, fontWeight: 'bold', marginBottom: 6, color: '#222' },
-  resumen: { fontSize: 13, color: '#555', lineHeight: 19 },
-});
-*/

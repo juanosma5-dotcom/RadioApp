@@ -1,9 +1,9 @@
+import { CONFIG } from '@/constants/config';
 import { Audio } from 'expo-av';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-// 👇 Aquí pondrás tu URL de streaming cuando la tengas
-const STREAM_URL = 'https://stream.zeno.fm/f3wvbbqmdg8uv'; // URL de prueba
+import WhatsAppButton from './WhatsAppButton';
 
 export default function RadioPlayer() {
   const [sonido, setSonido] = useState<InstanceType<typeof Audio.Sound> | null>(null);
@@ -29,7 +29,7 @@ export default function RadioPlayer() {
       });
 
       const { sound } = await Audio.Sound.createAsync(
-        { uri: STREAM_URL },
+        { uri: CONFIG.streamUrl },
         { shouldPlay: true, isLooping: false }
       );
 
@@ -51,6 +51,8 @@ export default function RadioPlayer() {
           {cargando ? 'Conectando...' : reproduciendo ? '🔴 Al Aire' : 'Toca para escuchar'}
         </Text>
       </View>
+
+      <WhatsAppButton />
 
       <TouchableOpacity style={styles.boton} onPress={togglePlay} disabled={cargando}>
         {cargando
