@@ -7,11 +7,11 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
-  SafeAreaView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Noticias() {
   const [noticias, setNoticias] = useState<WpPost[]>([]);

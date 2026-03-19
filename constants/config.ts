@@ -19,7 +19,7 @@ export const CONFIG = {
   // ---------------------------------------------------------------------------
 
   /** URL del stream de radio en vivo (Zeno.fm u otro proveedor) */
-  streamUrl: 'https://stream.zeno.fm/f3wvbbqmdg8uv',
+  streamUrl: 'https://radiolatina.live/9374/stream',
 
 
   // ---------------------------------------------------------------------------
@@ -35,6 +35,9 @@ export const CONFIG = {
   /** Endpoint para obtener una noticia por ID — usar con: `${CONFIG.apiNoticia}/${id}?_embed` */
   apiNoticia: 'https://antenadelosandes.com/wp-json/wp/v2/posts',
 
+  /** Endpoint para obtener los servicios desde la web */
+  apiServicios: 'https://antenadelosandes.com/servicios',
+
   /** Imagen de respaldo cuando una noticia no tiene imagen destacada */
   imagenFallback: 'https://antenadelosandes.com/wp-content/uploads/2025/07/cropped-IMG.png',
 
@@ -44,7 +47,7 @@ export const CONFIG = {
   // ---------------------------------------------------------------------------
 
   /** Número de WhatsApp en formato internacional sin espacios ni + (ej: 573117963757) */
-  whatsappNumber: '573117963757',
+  whatsappNumber: '573232216439',
 
   /** Mensaje predeterminado al abrir WhatsApp desde la app */
   whatsappMensaje:

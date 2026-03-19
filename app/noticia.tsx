@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import RenderHtml from "react-native-render-html";
 import { WpPost } from "@/types/post";
 

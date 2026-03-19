@@ -1,6 +1,7 @@
 import { globalStyles } from '@/styles/globalStyles';
 import { router } from 'expo-router';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Menu() {
   return (
@@ -21,6 +22,16 @@ export default function Menu() {
           onPress={() => router.push('/contacto' as any)}
         >
           <Text style={styles.menuText}>✉️ Contacto</Text>
+          <Text style={styles.chevron}>›</Text>
+        </TouchableOpacity>
+
+        <View style={styles.divider} />
+
+        <TouchableOpacity 
+          style={styles.menuItem}
+          onPress={() => router.push('/servicios' as any)}
+        >
+          <Text style={styles.menuText}>🛠️ Servicios</Text>
           <Text style={styles.chevron}>›</Text>
         </TouchableOpacity>
       </View>
