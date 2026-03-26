@@ -1,15 +1,26 @@
 import { globalStyles } from '@/styles/globalStyles';
 import { router } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Menu() {
   return (
-    <SafeAreaView style={globalStyles.container}>
+    <View style={[globalStyles.container, { backgroundColor: '#f4f4f4' }]}>
+      {/* Header personalizado más delgado y con fondo oscuro */}
+      <View style={styles.customHeader}>
+        <Text style={styles.modalTitle}>Menú</Text>
+        <TouchableOpacity onPress={() => router.back()} style={styles.closeBtn}>
+          <Ionicons name="close" size={28} color="#ffffff" />
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.menuList}>
         <TouchableOpacity 
           style={styles.menuItem}
-          onPress={() => router.push('/privacidad' as any)}
+          onPress={() => {
+            router.back();
+            router.push('/privacidad' as any);
+          }}
         >
           <Text style={styles.menuText}>🔒 Aviso de Privacidad</Text>
           <Text style={styles.chevron}>›</Text>
@@ -19,7 +30,10 @@ export default function Menu() {
 
         <TouchableOpacity 
           style={styles.menuItem}
-          onPress={() => router.push('/contacto' as any)}
+          onPress={() => {
+            router.back();
+            router.push('/contacto' as any);
+          }}
         >
           <Text style={styles.menuText}>✉️ Contacto</Text>
           <Text style={styles.chevron}>›</Text>
@@ -29,17 +43,36 @@ export default function Menu() {
 
         <TouchableOpacity 
           style={styles.menuItem}
-          onPress={() => router.push('/servicios' as any)}
+          onPress={() => {
+            router.back();
+            router.push('/servicios' as any);
+          }}
         >
           <Text style={styles.menuText}>🛠️ Servicios</Text>
           <Text style={styles.chevron}>›</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  customHeader: {
+    backgroundColor: '#000000',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#ffffff',
+  },
+  closeBtn: {
+    padding: 4,
+  },
   menuList: {
     backgroundColor: 'white',
     margin: 16,

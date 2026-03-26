@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import AppHeader from '@/components/AppHeader';
 import RadioPlayer from '@/components/RadioPlayer';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { ConfigProvider } from '@/context/ConfigContext';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -17,23 +18,25 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <View style={{ flex: 1 }}>
-        {/* Header persistente en todas las pantallas */}
-        <AppHeader />
+      <ConfigProvider>
+        <View style={{ flex: 1 }}>
+          {/* Header persistente en todas las pantallas */}
+          <AppHeader />
 
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="noticia" options={{ headerShown: false }} />
-          <Stack.Screen name="menu" options={{ title: 'Menú', presentation: 'modal' }} />
-          <Stack.Screen name="privacidad" options={{ title: 'Aviso de Privacidad' }} />
-          <Stack.Screen name="contacto" options={{ title: 'Contacto' }} />
-          <Stack.Screen name="servicios" options={{ title: 'Servicios' }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-        </Stack>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="noticia" options={{ headerShown: false }} />
+            <Stack.Screen name="menu" options={{ presentation: 'modal', headerShown: false }} />
+            <Stack.Screen name="privacidad" options={{ headerShown: false }} />
+            <Stack.Screen name="contacto" options={{ headerShown: false }} />
+            <Stack.Screen name="servicios" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal', headerShown: false }} />
+          </Stack>
 
-        {/* Reproductor persistente (incluye botón WhatsApp) */}
-        <RadioPlayer />
-      </View>
+          {/* Reproductor persistente (incluye botón WhatsApp) */}
+          <RadioPlayer />
+        </View>
+      </ConfigProvider>
       <StatusBar style="auto" />
     </ThemeProvider>
   );

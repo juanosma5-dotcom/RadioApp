@@ -1,4 +1,4 @@
-import { CONFIG } from "@/constants/config";
+import { useConfig } from "@/context/ConfigContext";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -14,6 +14,7 @@ import RenderHtml from "react-native-render-html";
 import { WpPost } from "@/types/post";
 
 export default function Noticia() {
+  const config = useConfig();
   const { id } = useLocalSearchParams();
   const [post, setPost] = useState<WpPost | null>(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ export default function Noticia() {
     if (!id) return;
     setLoading(true);
     setError(false);
-    fetch(`${CONFIG.apiNoticia}/${id}?_embed`)
+    fetch(`${config.api.noticia}/${id}?_embed`)
       .then(res => res.json())
       .then(data => {
         setPost(data);
@@ -57,7 +58,7 @@ export default function Noticia() {
     );
   }
 
-  const imagen = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? CONFIG.imagenFallback;
+  const imagen = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? config.media.fallback_image;
   const contenido = post.content?.rendered?.replace(/<!--.*?-->/gs, '').trim();
   const titulo = post.title?.rendered?.replace(/<[^>]*>/g, '');
 

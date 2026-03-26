@@ -1,4 +1,4 @@
-import { CONFIG } from '@/constants/config';
+import { useConfig } from '@/context/ConfigContext';
 import { globalStyles } from '@/styles/globalStyles';
 import { WpPost } from '@/types/post';
 import { router } from 'expo-router';
@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Noticias() {
+  const config = useConfig();
   const [noticias, setNoticias] = useState<WpPost[]>([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
@@ -21,7 +22,7 @@ export default function Noticias() {
   const loadNoticias = () => {
     setCargando(true);
     setError(false);
-    fetch(CONFIG.apiNoticias)
+    fetch(config.api.noticias)
       .then(res => res.json())
       .then((data: WpPost[]) => {
         setNoticias(data);
@@ -39,7 +40,7 @@ export default function Noticias() {
   }, []);
 
   const getImagen = (item: WpPost): string => {
-    return item._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? CONFIG.imagenFallback;
+    return item._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? config.media.fallback_image;
   };
 
   const getResumen = (item: WpPost): string => {

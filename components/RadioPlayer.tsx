@@ -1,11 +1,12 @@
-import { CONFIG } from '@/constants/config';
+import { useConfig } from '@/context/ConfigContext';
 import { Audio } from 'expo-av';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import WhatsAppButton from './WhatsAppButton';
+import SocialButtons from './SocialButtons';
 
 export default function RadioPlayer() {
+  const config = useConfig();
   const [sonido, setSonido] = useState<InstanceType<typeof Audio.Sound> | null>(null);
   const [reproduciendo, setReproduciendo] = useState(false);
   const [cargando, setCargando] = useState(false);
@@ -29,7 +30,7 @@ export default function RadioPlayer() {
       });
 
       const { sound } = await Audio.Sound.createAsync(
-        { uri: CONFIG.streamUrl },
+        { uri: config.stream.url },
         { shouldPlay: true, isLooping: false }
       );
 
@@ -52,7 +53,7 @@ export default function RadioPlayer() {
         </Text>
       </View>
 
-      <WhatsAppButton />
+      <SocialButtons />
 
       <TouchableOpacity style={styles.boton} onPress={togglePlay} disabled={cargando}>
         {cargando

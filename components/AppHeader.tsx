@@ -1,17 +1,28 @@
-import { router } from 'expo-router';
+import { router, usePathname } from 'expo-router';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useConfig } from '@/context/ConfigContext';
 
 export default function AppHeader() {
+  const config = useConfig();
   const insets = useSafeAreaInsets();
+  const pathname = usePathname();
   
+  const handleMenuPress = () => {
+    if (pathname === '/menu') {
+      router.back();
+    } else {
+      router.push('/menu' as any);
+    }
+  };
+
   return (
-    <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
+    <View style={[styles.header, { paddingTop: insets.top + 4 }]}>
       <View style={styles.left}>
-        <TouchableOpacity onPress={() => router.push('/menu' as any)} style={styles.menuIcon}>
+        <TouchableOpacity onPress={handleMenuPress} style={styles.menuIcon}>
           <Text style={styles.menuText}>☰</Text>
         </TouchableOpacity>
-        <Text style={styles.titulo}>Antena de los Andes</Text>
+        <Text style={styles.titulo}>{config.station}</Text>
       </View>
       
       <Image
@@ -30,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingBottom: 12,
+    paddingBottom: 8,
   },
   left: {
     flexDirection: 'row',

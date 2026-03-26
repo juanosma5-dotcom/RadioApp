@@ -1,10 +1,17 @@
 import { globalStyles } from '@/styles/globalStyles';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 export default function Privacidad() {
   return (
-    <SafeAreaView style={globalStyles.container}>
+    <View style={globalStyles.container}>
+      <View style={styles.customBlackHeader}>
+        <TouchableOpacity onPress={() => router.back()} style={{ marginRight: 15 }}>
+          <Ionicons name="arrow-back" size={24} color="#ffffff" />
+        </TouchableOpacity>
+        <Text style={styles.customHeaderTitle}>Aviso de Privacidad</Text>
+      </View>
       <ScrollView style={styles.content}>
         <View style={globalStyles.card}>
           <View style={globalStyles.contenido}>
@@ -23,7 +30,7 @@ export default function Privacidad() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -41,5 +48,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: '#444',
+  },
+  customBlackHeader: {
+    backgroundColor: '#000000',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  customHeaderTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#ffffff',
   },
 });

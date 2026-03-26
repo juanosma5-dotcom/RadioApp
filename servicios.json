@@ -1,0 +1,98 @@
+{
+  "servicios": [
+    {
+      "estado": "En producción",
+      "titulo": "SMGER — Sistema de Gestión de Emisoras",
+      "descripcion": "Plataforma multi-tenant para administración de emisoras de radio. Facturación, cartera, pagos online, roles granulares, módulo de evidencias y trazabilidad de órdenes publicitarias.",
+      "tecnologias": ["PHP", "MySQL", "Multi-tenant", "Pasarelas de pago"]
+    },
+    {
+      "estado": "Entregado",
+      "titulo": "PQRS — Junta Regional de Risaralda",
+      "descripcion": "Módulo completo de gestión de peticiones, quejas, reclamos y sugerencias para entidad pública. Control de radicados, seguimiento de estado, gestión documental y roles administrativos.",
+      "tecnologias": ["PHP", "Bootstrap 5", "Session auth", "Archivos adjuntos"]
+    },
+    {
+      "estado": "Activo",
+      "titulo": "Infraestructura Bongo Hosting",
+      "descripcion": "Nodo de hosting compartido sobre Rocky Linux con Proxmox, cPanel/WHM, certificados SSL, CloudLinux, backups automatizados y monitoreo continuo. Múltiples clientes activos.",
+      "tecnologias": ["Proxmox", "Rocky Linux", "cPanel/WHM", "CloudLinux"]
+    },
+    {
+      "estado": "En desarrollo",
+      "titulo": "Agentes IA — Grupo Emisoras",
+      "descripcion": "Sistema de agentes autónomos especializados: Christian (OPS-01) para ventas y crecimiento en cloud, Miguel (OPS-02) para infraestructura y seguridad local. Orquestados con Langflow y Claude.",
+      "tecnologias": ["Claude API", "Langflow", "Python", "MCP Server"]
+    },
+    {
+      "estado": "Entregado",
+      "titulo": "Portafolios & Landing Pages",
+      "descripcion": "Más de 20 diseños de páginas corporativas, portafolios profesionales y landing pages. Desde sitios institucionales hasta páginas de producto con foco en conversión.",
+      "tecnologias": ["HTML/CSS", "Tailwind", "JavaScript", "Responsive"]
+    },
+	{
+      "estado": "Activo",
+      "titulo": "Software a Medida",
+      "descripcion": "Sistemas web completos construidos sobre PHP, MySQL y arquitectura MVC. Portales de gestión, módulos administrativos, facturación electrónica y flujos de negocio personalizados.",
+      "tecnologias": ["PHP", "MySQL", "AdminLTE", "REST API"]
+    },
+    {
+      "estado": "Activo",
+      "titulo": "Infraestructura & Cloud",
+      "descripcion": "Virtualización con Proxmox, servidores Rocky Linux, contenedores, redes, VPN y hardening. Hosting web con cPanel para clientes y empresas a través de Bongo Hosting.",
+      "tecnologias": ["Proxmox", "Rocky Linux", "cPanel", "VPN"]
+    },
+    {
+      "estado": "Activo",
+      "titulo": "Agentes IA & Automatización",
+      "descripcion": "Diseño e implementación de agentes IA con Claude, Langflow y APIs externas. Automatización de flujos, integración entre sistemas y asistentes especializados por rol.",
+      "tecnologias": ["Claude API", "Langflow", "Python", "MCP"]
+    },
+    {
+      "estado": "Activo",
+      "titulo": "Sistemas de Radiodifusión",
+      "descripcion": "Automatización de playout radial, integración de software de emisión con sistemas de gestión, control de pauta publicitaria y facturación de servicios a anunciantes.",
+      "tecnologias": ["RadioBOSS", "Zara Radio", "Streaming", "Pauta"]
+    },
+    {
+      "estado": "Activo",
+      "titulo": "Integración de Pasarelas",
+      "descripcion": "Implementación de cobros en línea con Wompi, Stripe y MercadoPago. Arquitectura de adaptadores que permite cambiar de proveedor con una sola variable de entorno.",
+      "tecnologias": ["Wompi", "Stripe", "MercadoPago", "Webhook"]
+    },
+    {
+      "estado": "Activo",
+      "titulo": "Consultoría Tecnológica",
+      "descripcion": "Acompañamiento en decisiones de arquitectura, migración de sistemas heredados, seguridad en servidores y diseño de roadmap tecnológico para empresas en crecimiento.",
+      "tecnologias": ["Arquitectura", "Seguridad", "Migración", "Roadmap"]
+    }
+  ],
+
+  "stack": [
+    "PHP",
+    "PostgreSQL",
+    "MySQL / MariaDB",
+    "JavaScript",
+    "Python",
+    "CSS",
+    "NodeJS",
+    "Android",
+    "iOS",
+    "Tailwind CSS",
+    "Bootstrap 5",
+    "AdminLTE",
+    "HTML5",
+    "REST API",
+    "Proxmox VE",
+    "Rocky Linux",
+    "cPanel / WHM",
+    "Cloudflare",
+    "AI",
+    "Agents",
+    "Langflow",
+    "Wompi",
+    "Stripe",
+    "MercadoPago",
+    "Git"
+  ]
+}
