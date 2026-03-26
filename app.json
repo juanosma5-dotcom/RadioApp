@@ -10,6 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.emisora.antenadelosandes",
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
@@ -17,6 +18,7 @@
       }
     },
     "android": {
+      "package": "com.emisora.antenadelosandes",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
