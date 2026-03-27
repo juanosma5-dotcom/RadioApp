@@ -35,4 +35,5 @@ export interface AppConfig {
     name: string;
     url: string;
   }>;
+  contacto_email?: string;
 }

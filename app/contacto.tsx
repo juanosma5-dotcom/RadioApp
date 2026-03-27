@@ -2,9 +2,11 @@ import { globalStyles } from '@/styles/globalStyles';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Alert, ActivityIndicator, Platform, Keyboard } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { useConfig } from '@/context/ConfigContext';
 import { useState, useEffect } from 'react';
 
 export default function Contacto() {
+  const config = useConfig();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -45,7 +47,8 @@ export default function Contacto() {
       // El backend PHP necesitaría una pequeña condición para omitir el recaptcha si la petición viene de la app nativa.
       formData.append('g-recaptcha-response', 'app-nativa-bypass');
 
-      const response = await fetch('https://antenadelosandes.com/player/send_email_app.php', {
+      const endpointUrl = config.contacto_email || 'https://antenadelosandes.com/player/send_email_app.php';
+      const response = await fetch(endpointUrl, {
         method: 'POST',
         body: formData,
         // No enviamos Content-Type para que fetch lo decida (boundary automático de FormData)

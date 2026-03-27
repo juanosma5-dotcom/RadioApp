@@ -1,0 +1,38 @@
+{
+  "app_name": "Antena de los Andes",
+  "data_policy": {
+    "last_updated": "2024-05-20",
+    "title": "Tratamiento de Datos Personales",
+    "sections": [
+      {
+        "id": "introduction",
+        "content": "En Antena de los Andes, valoramos tu privacidad. Nuestra aplicación está diseñada para que disfrutes de nuestra programación de manera anónima y sin registros obligatorios."
+      },
+      {
+        "id": "consent_notice",
+        "title": "Uso de Canales de Comunicación",
+        "content": "Al utilizar nuestros canales de contacto directos (WhatsApp o Correo Electrónico) disponibles en la app, aceptas que los datos que proporciones voluntariamente sean tratados bajo los siguientes términos:"
+      },
+      {
+        "id": "purposes",
+        "title": "¿Para qué usamos tu información?",
+        "items": [
+          "Atender tus mensajes, sugerencias o reportes técnicos.",
+          "Gestionar tus solicitudes de canciones, saludos o participación al aire.",
+          "Darte respuesta directa a través del mismo canal que utilizaste."
+        ]
+      },
+      {
+        "id": "privacy_guarantee",
+        "title": "Tu Seguridad",
+        "content": "No recolectamos datos automáticamente ni rastreamos tu ubicación. Tu información de contacto nunca será compartida con terceros para fines publicitarios."
+      },
+      {
+        "id": "user_control",
+        "title": "Control del Usuario",
+        "content": "Tú tienes el control total. Al ser una comunicación iniciada por ti, puedes solicitar el cese de la misma en cualquier momento."
+      }
+    ],
+    "short_footer": "Al comunicarte con nosotros vía WhatsApp o Email, aceptas el tratamiento de tus datos para gestionar tu solicitud."
+  }
+}
